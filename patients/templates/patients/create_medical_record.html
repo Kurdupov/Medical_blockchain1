@@ -1,0 +1,14 @@
+<!-- patients/templates/patients/create_medical_record.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Створити медичний запис{% endblock %}
+
+{% block content %}
+<h2>Створити медичний запис для {{ patient.first_name }} {{ patient.last_name }}</h2>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Створити медичний запис</button>
+</form>
+{% endblock %}

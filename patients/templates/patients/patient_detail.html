@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ patient.first_name }} {{ patient.last_name }}{% endblock %}
+
+{% block content %}
+<h1>{{ patient.first_name }} {{ patient.last_name }}</h1>
+<p>Дата народження: {{ patient.birth_date }}</p>
+<h2>Медичні записи</h2>
+<table class="table table-hover">
+    <thead class="thead-dark">
+        <tr>
+            <th>Дата візиту</th>
+            <th>Діагноз</th>
+            <th>Результати аналізів</th>
+            <th>Хеш</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for record in records %}
+        <tr>
+            <td>{{ record.visit_date }}</td>
+            <td>{{ record.diagnosis }}</td>
+            <td>{{ record.analysis_results }}</td>
+            <td>{{ record.blockchain_hash }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<a href="{% url 'create_medical_record' patient.id %}" class="btn btn-primary mt-3">Додати медичний запис</a>
+<a href="{% url 'patient_list' %}" class="btn btn-secondary mt-3">Повернутися в облік пацієнтів</a>
+{% endblock %}

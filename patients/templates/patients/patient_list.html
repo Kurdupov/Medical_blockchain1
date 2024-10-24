@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Список пацієнтів{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mb-4">Список пацієнтів</h1>
+
+    <!-- Форма пошуку пацієнтів -->
+    <form method="GET" action="{% url 'patient_list' %}" class="form-inline mb-4">
+        <input type="text" name="q" class="form-control mr-2" placeholder="Пошук пацієнта" value="{{ request.GET.q }}">
+        <button type="submit" class="btn btn-primary">Пошук</button>
+    </form>
+
+    <!-- Виведення результатів пошуку -->
+    <div class="row">
+        {% for patient in patients %}
+        <div class="col-md-4">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">{{ patient.first_name }} {{ patient.last_name }}</h5>
+                    <p class="card-text">Дата народження: {{ patient.birth_date }}</p>
+                    <a href="{% url 'patient_detail' patient.id %}" class="btn btn-primary">Переглянути</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>Пацієнтів не знайдено.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
